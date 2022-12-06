@@ -94,7 +94,12 @@ func (db *MySQLDialect) SQLType(c *Column) string {
 		if c.IsLatin {
 			res += " CHARACTER SET latin1 COLLATE latin1_bin"
 		} else {
-			res += " CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
+			switch c.Name {
+			case "uid","rule_uid":
+				res += " CHARACTER SET utf8mb4 COLLATE utf8mb4_bin"
+			default:
+				res += " CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
+			}
 		}
 	}
 
